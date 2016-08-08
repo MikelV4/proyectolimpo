@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<!-- Appenders -->
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="%d{dd MM yyyy - HH:mm:ss} [%-5p] %c.%M Linea  %L, %m%n" />
+		</layout>
+	</appender>
+
+	<!--************************************************************************************************************************ -->
+
+        <appender name="archivo" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${catalina.base}/logs/SistemaOlimpo.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.EnhancedPatternLayout">
+			<param name="ConversionPattern"
+				value="[#%d-[%-5p]-%m-%c.%M()-linea %L- ip aplicacion [%X{ipRemote}] #]%n" />
+		</layout>
+
+		<!-- omite todos los logs que tengan la palabra Transaccion -->
+		<filter class="org.apache.log4j.varia.StringMatchFilter">
+			<param name="StringToMatch" value="Transaccion" />
+			<param name="AcceptOnMatch" value="false" />
+		</filter>
+	</appender>
+ 
+	<!--************************************************************************************************************************ -->
+	<appender name="archivo2" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="file" value="${catalina.base}/logs/SistemaOlimpo.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.EnhancedPatternLayout">
+			<param name="ConversionPattern"
+				value="[#%d-[%-5p]-%m-%c.%M()-linea %L-ip aplicacion [%X{ipRemote}] Tiempo de ejecucion: %X{tEjecucion} ms#]%n" />
+		</layout>
+
+		<!-- solo imprime los logs que tengan la palabra Transaccion -->
+                
+		<filter class="org.apache.log4j.varia.StringMatchFilter">
+			<param name="StringToMatch" value="Transaccion" />
+			<param name="AcceptOnMatch" value="true" />
+		</filter>
+		<filter class="org.apache.log4j.varia.DenyAllFilter" />
+	</appender>
+	
+	<!--************************************************************************************************************************ -->
+	<appender name="FILE" class="org.apache.log4j.rolling.RollingFileAppender">
+   		 <rollingPolicy class="org.apache.log4j.rolling.TimeBasedRollingPolicy">
+			<param name="FileNamePattern" value="${catalina.base}/logs/SisOlimpo-%d.log" />
+		 </rollingPolicy>
+		
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[#%d-[%-5p]-%m-%c.%M()-linea %L- ip aplicacion [%X{ipRemote}] #]%n" />
+		</layout>
+	</appender>
+
+	<!--************************************************************************************************************************ -->
+
+        <logger name="org.springframework">
+		<level value="INFO" />
+	</logger>
+        
+	<root>
+		<priority value="trace" />
+		<!--<appender-ref ref="archivo" />-->
+		<!--<appender-ref ref="archivo2" />-->		
+		<appender-ref ref="FILE" />
+
+	</root>
+
+</log4j:configuration>
