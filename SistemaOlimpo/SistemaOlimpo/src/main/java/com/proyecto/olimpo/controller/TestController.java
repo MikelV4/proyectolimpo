@@ -25,8 +25,6 @@ public class TestController {
     
 	static final Logger log = Logger.getLogger(TestController.class);
         
-        
-
 	@RequestMapping(value=RutasWS.CTR_SERVICIO_TEST , method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody ContenedorResponse<?>obtenerCalificacionBuro(
 			HttpServletRequest request){
