@@ -1,7 +1,6 @@
-package com.proyecto.olimpo.conexionSQL;
+package com.proyecto.olimpo.dao.commons;
 
 import com.proyecto.olimpo.commons.PropertiesWS;
-import com.proyecto.olimpo.dao.ConexionSucursalDao;
 import com.proyecto.olimpo.utils.UtileriasHelper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,20 +19,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 @Component
-public class ConexionSucursal {
+public class ConexionBaseDatos {
 
-    private final Logger logger = Logger.getLogger(ConexionSucursal.class);
+    private final Logger logger = Logger.getLogger(ConexionBaseDatos.class);
 
-    @Autowired
-    private ConexionSucursalDao datosconexion;
     @Autowired
     private UtileriasHelper utileriasHelper;
     @Autowired
     private PropertiesWS propertiesWS;
 
     //Abre conexion y transaccion
-    public Connection getConexionSucursal(int sucursal) throws SQLException {
-        logger.info("[OBTENER DATOS CONEXION SUCURSAL]:" + sucursal);
+    public Connection getConexionBD() throws SQLException {
+        logger.info("[OBTENER DATOS CONEXION]");
         Connection connection = null;
         HashMap<String, Object> resultados = new HashMap<String, Object>();
         String url, database, username, password;
@@ -511,4 +508,5 @@ public class ConexionSucursal {
         } catch (SQLException e) {
         }
     }
+
 }
